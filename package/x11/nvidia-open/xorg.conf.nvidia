@@ -1,0 +1,37 @@
+# Sample xorg.conf for NVIDIA proprietary driver (590.x+)
+# Generated for GTX 1650 (Turing) on T2/Linux 25.10
+#
+# Adjust MetaModes to match your monitor output and refresh rate.
+# Run `xrandr` to list available outputs and modes.
+#
+# ForceCompositionPipeline fixes tearing with XFCE/xfwm4 and other compositors.
+# If using XFCE, also set vblank_mode to glx:
+#   xfconf-query -c xfwm4 -p /general/vblank_mode -s "glx"
+
+Section "ServerLayout"
+    Identifier     "Default Layout"
+    Screen         "Screen0" 0 0
+EndSection
+
+Section "Monitor"
+    Identifier     "Monitor0"
+    Option         "DPMS"
+EndSection
+
+Section "Device"
+    Identifier     "GPU"
+    Driver         "nvidia"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen0"
+    Device         "GPU"
+    Monitor        "Monitor0"
+    DefaultDepth    24
+    # Adjust HDMI-0 to your output (check with: xrandr)
+    # Adjust refresh rate to your monitor's maximum (e.g. 60, 144, 240)
+    Option         "MetaModes" "HDMI-0: 1920x1080_240 +0+0 { ForceCompositionPipeline=On, ForceFullCompositionPipeline=On }"
+    SubSection     "Display"
+        Depth       24
+    EndSubSection
+EndSection
